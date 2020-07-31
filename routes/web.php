@@ -25,3 +25,5 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::resource('/users', 'UserController');
 Route::resource('/roles', 'RoleController');
+Route::resource('/questions', 'QuestionController');
+Route::resource('/students', 'StudentController');
