@@ -27,3 +27,7 @@ Route::resource('/users', 'UserController');
 Route::resource('/roles', 'RoleController');
 Route::resource('/questions', 'QuestionController');
 Route::resource('/students', 'StudentController');
+
+Route::get('/information', function () {
+    return view("information.index");
+})->middleware(("auth"));

@@ -12,6 +12,8 @@
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+  <link rel="icon" type="image/png" href="{{ asset('dist/img/AdminLTELogo.png') }}">
+
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -124,6 +126,13 @@
                     </a>
                   </li>
                 @endif
+                <li class="nav-item">
+                  <a href="{{ url('/information') }}"
+                    class="{{ Request::path() === 'information' ? 'nav-link active' : 'nav-link' }}">
+                    <i class="material-icons mr-2">info_outline</i>
+                    <p>Information</p>
+                  </a>
+                </li>
               </ul>
             @endguest
           </nav>
