@@ -6,7 +6,7 @@
 
 @section('content')
   <div class="container mt-4">
-    <h3>Edit the user: {{ $user->name }}</h3>
+    <h2>Add new questions</h2>
     @if ($errors->any())
       <div class="alert alert-danger">
         <ul>
@@ -16,28 +16,27 @@
         </ul>
       </div>
     @endif
-    <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
-      @method("PATCH")
+    <form action="/users" method="POST">
       @csrf
       <div class="row">
         <div class="form-group col-md-6">
           <label>Name</label>
-          <input type="text" name="name" class="form-control" value="{{ $user->name }}" placeholder="Escribe tu nombre">
+          <input type="text" name="name" class="form-control" placeholder="Write your name">
         </div>
         <div class="form-group col-md-6">
           <label>Email</label>
-          <input type="email" name="email" class="form-control" value="{{ $user->email }}" placeholder="Escribe tu email">
+          <input type="email" name="email" class="form-control" placeholder="Write your email">
         </div>
       </div>
 
       <div class="row">
         <div class="form-group col-md-6">
-          <label>Password <span class="small">(Optional)</span></label>
-          <input type="password" class="form-control" name="password" placeholder="Contraseña">
+          <label>Password</label>
+          <input type="password" class="form-control" name="password" placeholder="Password">
         </div>
         <div class="form-group col-md-6">
-          <label>Password confirmation <span class="small">(Optional)</span></label>
-          <input type="password" class="form-control" name="password_confirmation" placeholder="Contraseña">
+          <label>Password confirmation</label>
+          <input type="password" class="form-control" name="password_confirmation" placeholder="Password">
         </div>
       </div>
 
@@ -46,18 +45,11 @@
           <label for="email">Role</label>
           <select id="select2" name="rol" class="form-control">
             <option selected disabled>Choose a Role for this user...</option>
-            @foreach ($roles as $role)
-              @if ($role->name == str_replace(['["', '"]'], '', $user->tieneRol()))
-                <option value="{{ $role->id }}" selected>{{ $role->name }}</option>
-              @else
-                <option value="{{ $role->id }}">{{ $role->name }}</option>
-              @endif
-            @endforeach
           </select>
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary mr-2">Save</button>
+      <button type="submit" class="btn btn-primary mr-2">Register</button>
       <a href="{{ url('/users') }}">
         <button type="button" class="btn btn-danger">Cancel</button>
       </a>

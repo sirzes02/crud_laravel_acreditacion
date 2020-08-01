@@ -8,30 +8,44 @@
   <div class="container mt-4">
     <div>
       <h2>
-        List of roles
-        <a href="roles/create">
-          <button type="button" class="btn btn-success float-right">Add rol</button>
+        List of questions
+        <a href="questions/create">
+          <button type="button" class="btn btn-success float-right">Add question</button>
         </a>
       </h2>
     </div>
+
     <div class="mt-4">
-      <table id="dataTable" class="table table-bordered table-hover">
+      <table id="dataTable" class="table table-bordered table-hover w-100">
         <thead>
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Label</th>
+            <th scope="col">Title</th>
+            <th scope="col">Correct option</th>
+            <th scope="col">Option 1</th>
+            <th scope="col">Option 2</th>
+            <th scope="col">Option 3</th>
+            <th scope="col">Factor</th>
             <th scope="col">Options</th>
           </tr>
         </thead>
         <tbody>
-          @foreach ($roles as $role)
-            <tr class="item{{ $role->id }}">
-              <th scope="row">{{ $role->id }}</th>
-              <td>{{ $role->name }}</td>
-              <td>{{ $role->label }}</td>
+          @foreach ($questions as $question)
+            <tr class="item{{ $question->id }}">
+              <th scope="row">{{ $question->id }}</th>
+              <td>{{ $question->titulo }}</td>
+              <td>{{ $question->opcCorrecta }}</td>
+              <td>{{ $question->opc1 }}</td>
+              <td>{{ $question->opc2 }}</td>
+              <td>{{ $question->opc3 }}</td>
+              <td>{{ $question->factor == 0 ? 'General' : $question->factor }}</td>
               <td class="d-flex justify-content-center">
-                <button class="delete-modal btn btn-danger btn-sm" data-info="{{ $role->id }},{{ $role->name }}">
+                <a href="{{ route('users.edit', $question->id) }}">
+                  <button type="button" class="btn btn-primary btn-sm mx-1">
+                    <i class="material-icons">create</i>
+                  </button>
+                </a>
+                <button class="delete-modal btn btn-danger btn-sm" data-info="{{ $question->id }}">
                   <i class="material-icons">delete_forever</i>
                 </button></td>
               </td>
@@ -51,24 +65,23 @@
     $(document).ready(function() {
       $('#dataTable').DataTable({
         lengthMenu: [
-          [5, 10, 25, -1],
-          [5, 10, 25, "Todos"],
+          [10, 25, 50, -1],
+          [10, 25, 50, "Todos"],
         ],
         columnDefs: [{
           orderable: false,
           searchable: false,
-          width: "4%",
-          targets: 3
+          width: "12%",
+          targets: 7
         }],
       });
     });
 
     $(document).on('click', '.delete-modal', function() {
-      var stuff = $(this).data('info').split(',');
 
       Swal.fire({
         title: 'Are you sure?',
-        text: stuff[1] + " will be deleted",
+        text: "Question #" + $(this).data('info') + " will be deleted",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -79,16 +92,16 @@
         if (result.value) {
           $.ajax({
             type: "DELETE",
-            url: '/roles/destroy',
+            url: '/users/destroy',
             data: {
               "_token": $('meta[name="csrf-token"]').attr('content'),
-              'id': stuff[0]
+              'id': $(this).data('info')
             },
             success: function(data) {
-              $('.item' + stuff[0]).remove();
+              $('.item' + $(this).data('info')).remove();
               Swal.fire(
                 'Deleted!',
-                'The user ' + stuff[1] + " was deleted successfully.",
+                'The question ' + $(this).data('info') + " was deleted successfully.",
                 'success'
               );
             },
