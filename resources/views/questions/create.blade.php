@@ -1,12 +1,8 @@
-@section('styles')
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-@endsection
-
 @extends('layouts.app')
 
 @section('content')
   <div class="container mt-4">
-    <h2>Add new questions</h2>
+    <h2>Add new question</h2>
     @if ($errors->any())
       <div class="alert alert-danger">
         <ul>
@@ -16,53 +12,43 @@
         </ul>
       </div>
     @endif
-    <form action="/users" method="POST">
+    <form action="/questions" method="POST">
       @csrf
+      <div class="form-group">
+        <label>Title</label>
+        <textarea name="titulo" rows="2" class="form-control" required></textarea>
+      </div>
       <div class="row">
         <div class="form-group col-md-6">
-          <label>Name</label>
-          <input type="text" name="name" class="form-control" placeholder="Write your name">
+          <label>Correct option</label>
+          <textarea name="opcCorrecta" rows="3" class="form-control" required></textarea>
         </div>
         <div class="form-group col-md-6">
-          <label>Email</label>
-          <input type="email" name="email" class="form-control" placeholder="Write your email">
+          <label>Option 1</label>
+          <textarea name="opc1" rows="3" class="form-control" required></textarea>
         </div>
       </div>
-
       <div class="row">
         <div class="form-group col-md-6">
-          <label>Password</label>
-          <input type="password" class="form-control" name="password" placeholder="Password">
+          <label>Option 2</label>
+          <textarea name="opc2" rows="3" class="form-control" required></textarea>
         </div>
         <div class="form-group col-md-6">
-          <label>Password confirmation</label>
-          <input type="password" class="form-control" name="password_confirmation" placeholder="Password">
+          <label>Option 3</label>
+          <textarea name="opc3" rows="3" class="form-control" required></textarea>
         </div>
       </div>
-
-      <div class="row">
-        <div class="form-group col-md-6">
-          <label for="email">Role</label>
-          <select id="select2" name="rol" class="form-control">
-            <option selected disabled>Choose a Role for this user...</option>
-          </select>
-        </div>
+      <div class="form-group">
+        <label>Factor</label>
+        <input type="number" name="factor" class="form-control" min="0" max="12" required>
       </div>
 
-      <button type="submit" class="btn btn-primary mr-2">Register</button>
-      <a href="{{ url('/users') }}">
-        <button type="button" class="btn btn-danger">Cancel</button>
-      </a>
+      <div class="mt-3">
+        <button type="submit" class="btn btn-primary mr-2">Create</button>
+        <a href="{{ url('/questions') }}">
+          <button type="button" class="btn btn-danger">Cancel</button>
+        </a>
+      </div>
     </form>
   </div>
-@endsection
-
-@section('scripts')
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js" defer></script>
-  <script>
-    $(document).ready(function() {
-      $('#select2').select2();
-    });
-
-  </script>
 @endsection

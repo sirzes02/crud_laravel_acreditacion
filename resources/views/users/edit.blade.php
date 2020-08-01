@@ -22,11 +22,13 @@
       <div class="row">
         <div class="form-group col-md-6">
           <label>Name</label>
-          <input type="text" name="name" class="form-control" value="{{ $user->name }}" placeholder="Escribe tu nombre">
+          <input type="text" name="name" class="form-control" value="{{ $user->name }}" placeholder="Escribe tu nombre"
+            required>
         </div>
         <div class="form-group col-md-6">
           <label>Email</label>
-          <input type="email" name="email" class="form-control" value="{{ $user->email }}" placeholder="Escribe tu email">
+          <input type="email" name="email" class="form-control" value="{{ $user->email }}" placeholder="Escribe tu email"
+            required>
         </div>
       </div>
 

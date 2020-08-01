@@ -78,10 +78,10 @@
     });
 
     $(document).on('click', '.delete-modal', function() {
-
+      stuff = $(this).data('info');
       Swal.fire({
         title: 'Are you sure?',
-        text: "Question #" + $(this).data('info') + " will be deleted",
+        text: "Question #" + stuff + " will be deleted",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -92,16 +92,16 @@
         if (result.value) {
           $.ajax({
             type: "DELETE",
-            url: '/users/destroy',
+            url: '/questions/destroy',
             data: {
               "_token": $('meta[name="csrf-token"]').attr('content'),
-              'id': $(this).data('info')
+              'id': stuff
             },
             success: function(data) {
-              $('.item' + $(this).data('info')).remove();
+              $('.item' + stuff).remove();
               Swal.fire(
                 'Deleted!',
-                'The question ' + $(this).data('info') + " was deleted successfully.",
+                'The question ' + stuff + " was deleted successfully.",
                 'success'
               );
             },

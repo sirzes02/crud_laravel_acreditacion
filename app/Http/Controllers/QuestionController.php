@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\QuestionCreateFormRequest;
 use App\Question;
 use Illuminate\Http\Request;
 
@@ -39,9 +40,19 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuestionCreateFormRequest $request)
     {
-        //
+        $question = new Question();
+        $question->factor = $request->get("factor");
+        $question->titulo = $request->get("titulo");
+        $question->opcCorrecta = $request->get("opcCorrecta");
+        $question->opc1 = $request->get("opc1");
+        $question->opc2 = $request->get("opc2");
+        $question->opc3 = $request->get("opc3");
+
+        $question->save();
+
+        return redirect("questions");
     }
 
     /**
