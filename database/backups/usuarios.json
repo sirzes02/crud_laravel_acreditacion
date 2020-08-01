@@ -1,0 +1,68 @@
+[
+  {
+    "puntaje": 0,
+    "resueltas": "",
+    "semana": "",
+    "cedula": "1005868161",
+    "email": "santiago.varela00@usc.edu.co",
+    "avatar": 0,
+    "nombre": "Santiago Varela",
+    "contrasenia": "$2a$10$30U.Xwk1bOKDc9KI12m0Ke.LdIrErBm/hCxO509M02FJX54RAuhcq",
+    "tipo": "Estudiante",
+    "programa": "Ingenieria de sistemas",
+    "facultad": "Ingenieria"
+  },
+  {
+    "puntaje": 0,
+    "resueltas": "",
+    "semana": "",
+    "cedula": "1193578869",
+    "email": "catalina.mendoza@usc.edu.co",
+    "avatar": 1,
+    "nombre": "CatalinaMendoza",
+    "contrasenia": "$2a$10$RC5vVc9PoWoTTWeEFzMSi.6YioS6H3p67CC/6eDX7Sk7ddBpaIMTm",
+    "tipo": "Estudiante",
+    "programa": "tecnologia de sistemas",
+    "facultad": "Ingenieria"
+  },
+  {
+    "puntaje": 0,
+    "resueltas": "",
+    "semana": "",
+    "cedula": "1156249965",
+    "email": "Juan.garcia00@usc.edu.co",
+    "avatar": 2,
+    "nombre": "Juan Garcia",
+    "contrasenia": "$2a$10$jsULhd4Z7fdaEBK0T4aIfONHBOLpDLatFJbxU99GPsuE11hdEa2rO",
+    "tipo": "Estudiante",
+    "programa": "Tecnologia de sistemas",
+    "facultad": "Ingenieria",
+    "__v": 0
+  },
+  {
+    "puntaje": 0,
+    "resueltas": "",
+    "semana": "",
+    "cedula": "11542365198",
+    "email": "daniel.rodriguez@usc.edu.co",
+    "avatar": 3,
+    "nombre": "Daniel Rodriguez",
+    "contrasenia": "$2a$10$BajwyF2Ph6/VB6VnK7ZTFe1xpAJZ6PREnc0NH8WToB4JzPYBr.N8S",
+    "tipo": "Estudiante",
+    "programa": "Tecnologia de sistemas",
+    "facultad": "Ingenieria"
+  },
+  {
+    "puntaje": 0,
+    "resueltas": "",
+    "semana": "",
+    "cedula": "125653262",
+    "email": "valentina.maldonado@usc.edu.co",
+    "avatar": 4,
+    "nombre": "Valentina Maldonado",
+    "contrasenia": "$2a$10$sAJ1tap1ScMwCZZjJS1h.erUYCjHXms2MqaVjTB7ADs7x7mJJzHfe",
+    "tipo": "Estudiante",
+    "programa": "Bioingenieria",
+    "facultad": "Ingenieria"
+  }
+]

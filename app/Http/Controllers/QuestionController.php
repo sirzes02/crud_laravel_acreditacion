@@ -109,9 +109,9 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        Question::find($request->id)->delete();
+        Question::find($id)->delete();
 
         return response()->json();
     }

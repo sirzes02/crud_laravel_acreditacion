@@ -92,10 +92,9 @@
         if (result.value) {
           $.ajax({
             type: "DELETE",
-            url: '/questions/destroy',
+            url: '/questions/' + stuff[0],
             data: {
-              "_token": $('meta[name="csrf-token"]').attr('content'),
-              'id': stuff
+              "_token": $('meta[name="csrf-token"]').attr('content')
             },
             success: function(data) {
               $('.item' + stuff).remove();

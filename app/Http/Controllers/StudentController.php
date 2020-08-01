@@ -87,8 +87,6 @@ class StudentController extends Controller
      */
     public function destroy(Request $request)
     {
-        Question::find($request->id)->delete();
-
-        return response()->json();
+        //
     }
 }
