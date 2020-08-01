@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\QuestionCreateFormRequest;
+use App\Http\Requests\QuestionUpdateFormRequest;
 use App\Question;
 use Illuminate\Http\Request;
 
@@ -74,7 +75,9 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $question = Question::find($id);
+
+        return view("questions.edit", ["question" => $question]);
     }
 
     /**
@@ -84,9 +87,20 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuestionUpdateFormRequest $request, $id)
     {
-        //
+        $usuario = Question::find($id);
+
+        $usuario->titulo = $request->get("titulo");
+        $usuario->opcCorrecta = $request->get("opcCorrecta");
+        $usuario->opc1 = $request->get("opc1");
+        $usuario->opc2 = $request->get("opc2");
+        $usuario->opc3 = $request->get("opc3");
+        $usuario->factor = $request->get("factor");
+
+        $usuario->update();
+
+        return redirect("/questions");
     }
 
     /**

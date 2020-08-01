@@ -40,7 +40,7 @@
               <td>{{ $question->opc3 }}</td>
               <td>{{ $question->factor == 0 ? 'General' : $question->factor }}</td>
               <td class="d-flex justify-content-center">
-                <a href="{{ route('users.edit', $question->id) }}">
+                <a href="{{ route('questions.edit', $question->id) }}">
                   <button type="button" class="btn btn-primary btn-sm mx-1">
                     <i class="material-icons">create</i>
                   </button>
