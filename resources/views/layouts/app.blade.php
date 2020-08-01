@@ -18,7 +18,7 @@
 
   <!-- Styles -->
   <link href="{{ asset('dist/css/adminlte.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link href="{{ asset('dist/css/app.css') }}" rel="stylesheet">
   @yield('styles')
 </head>
 
@@ -70,60 +70,62 @@
 
           <!-- Sidebar Menu -->
           <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-              <li class="nav-item">
-                <a href="/" class="{{ Request::path() === '/' ? 'nav-link active' : 'nav-link' }}">
-                  <i class="material-icons mr-2">home</i>
-                  <p>Home</p>
-                </a>
-              </li>
-
-              @can('administrador')
+            @guest
+            @else
+              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                  <a href="{{ url('/users') }}"
-                    class="{{ Request::path() === 'users' ? 'nav-link active' : 'nav-link' }}">
-                    <i class="material-icons mr-2">people</i>
-                    <p>
-                      Users
-                      <?php $users_count = DB::table('users')->count(); ?>
+                  <a href="/" class="{{ Request::path() === '/' ? 'nav-link active' : 'nav-link' }}">
+                    <i class="material-icons mr-2">home</i>
+                    <p>Home</p>
+                  </a>
+                </li>
+                @can('administrador')
+                  <li class="nav-item">
+                    <a href="{{ url('/users') }}"
+                      class="{{ Request::path() === 'users' ? 'nav-link active' : 'nav-link' }}">
+                      <i class="material-icons mr-2">people</i>
+                      <p>
+                        Users
+                        <?php $users_count = DB::table('users')->count(); ?>
+                        <span class="right badge badge-danger">{{ $users_count ?? '0' }}</span>
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ url('/roles') }}"
+                      class="{{ Request::path() === 'roles' ? 'nav-link active' : 'nav-link' }}">
+                      <i class="material-icons mr-2">collections_bookmark</i>
+                      <p>Roles</p>
+                      <?php $users_count = DB::table('roles')->count(); ?>
                       <span class="right badge badge-danger">{{ $users_count ?? '0' }}</span>
-                    </p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ url('/roles') }}"
-                    class="{{ Request::path() === 'roles' ? 'nav-link active' : 'nav-link' }}">
-                    <i class="material-icons mr-2">collections_bookmark</i>
-                    <p>Roles</p>
-                    <?php $users_count = DB::table('roles')->count(); ?>
-                    <span class="right badge badge-danger">{{ $users_count ?? '0' }}</span>
-                  </a>
-                </li>
-              @endcan
-              @if (Auth::user()->can('Vicerrectoria') ||
-                Auth::user()->can('administrador'))
-                <li class="nav-item">
-                  <a href="{{ url('/questions') }}"
-                    class="{{ Request::path() === 'questions' ? 'nav-link active' : 'nav-link' }}">
-                    <i class="material-icons mr-2">question_answer</i>
-                    <p>
-                      Questions
-                      <?php $users_count = DB::table('questions')->count(); ?>
+                    </a>
+                  </li>
+                @endcan
+                @if (Auth::user()->can('Vicerrectoria') ||
+                  Auth::user()->can('administrador'))
+                  <li class="nav-item">
+                    <a href="{{ url('/questions') }}"
+                      class="{{ Request::path() === 'questions' ? 'nav-link active' : 'nav-link' }}">
+                      <i class="material-icons mr-2">question_answer</i>
+                      <p>
+                        Questions
+                        <?php $users_count = DB::table('questions')->count(); ?>
+                        <span class="right badge badge-danger">{{ $users_count ?? '0' }}</span>
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ url('/students') }}"
+                      class="{{ Request::path() === 'students' ? 'nav-link active' : 'nav-link' }}">
+                      <i class="material-icons mr-2">people_outline</i>
+                      <p>Students</p>
+                      <?php $users_count = DB::table('students')->count(); ?>
                       <span class="right badge badge-danger">{{ $users_count ?? '0' }}</span>
-                    </p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ url('/students') }}"
-                    class="{{ Request::path() === 'students' ? 'nav-link active' : 'nav-link' }}">
-                    <i class="material-icons mr-2">people_outline</i>
-                    <p>Students</p>
-                    <?php $users_count = DB::table('students')->count(); ?>
-                    <span class="right badge badge-danger">{{ $users_count ?? '0' }}</span>
-                  </a>
-                </li>
-              @endif
-            </ul>
+                    </a>
+                  </li>
+                @endif
+              </ul>
+            @endguest
           </nav>
           <!-- /.sidebar-menu -->
         </div>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Question;
+use App\Student;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -18,7 +20,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $students = Student::all();
+        return view("students.index", ["students" => $students]);
     }
 
     /**
@@ -82,8 +85,10 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        Question::find($request->id)->delete();
+
+        return response()->json();
     }
 }

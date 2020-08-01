@@ -128,8 +128,6 @@ class UserController extends Controller
      */
     public function destroy(Request $request)
     {
-        User::find($request->id)->delete();
-
-        return response()->json();
+        //
     }
 }
