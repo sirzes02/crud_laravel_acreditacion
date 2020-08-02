@@ -1,5 +1,8 @@
 <?php
 
+use App\Role;
+use App\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,6 +14,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        Model::unguard();
+
+        $this->call(UsersSeeder::class);
+        $this->call(RoleSeeder::class);
+
+        $user = User::find(1);
+        $role = Role::firstOrCreate(["name" => "administrador"]);
+        $user->asignarRol($role);
+
+        Model::reguard();
     }
 }
