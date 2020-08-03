@@ -16,5 +16,7 @@ class RoleSeeder extends Seeder
         Model::unguard();
 
         Role::create(["name" => "administrador"]);
+        Role::create(["name" => "Vicerrectoria"]);
+        Role::create(["name" => "Decanatura"]);
     }
 }
