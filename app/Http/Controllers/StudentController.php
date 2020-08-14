@@ -116,23 +116,6 @@ class StudentController extends Controller
 
     public function register(Request $request)
     {
-	$student = new Student();
-
-	$student->puntaje = 0;
-	$student->resueltas = "";
-	$student->semana = "";
-	$student->cedula = $request->get("cedula");
-	$student->email = $request->get("email");
-	$student->avatar = $request->get("avatar");
-	$student->nombre = $request->get("nombre");
-	$student->contrasenia = bcrypt($request->get("contrasenia"));
-	$student->tipo = $request->get("tipo");
-	$student->programa = $request->get("programa");
-	$student->facultad = $request->get("facultad");
-
-	$student->save();
-
-	return response()->json(["ingreso"=>"Registro exitoso"]);
     }
 
     public function resueltas(Request $request)
