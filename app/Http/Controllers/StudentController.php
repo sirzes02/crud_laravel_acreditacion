@@ -107,7 +107,7 @@ class StudentController extends Controller
         }
 
         if (Hash::check($request->get("contrasenia"), $student->contrasenia)) {
-            return response()->json(["ingreso" => true, "cedula" => $student->cedula, "nombre" => $student->nombre, "avatar" => $student->avatar]);
+            return response()->json(["ingreso" => true, "cedula" => $student->cedula, "correo" => $request->get("email"), "nombre" => $student->nombre, "avatar" => $student->avatar]);
         }
 
         return response()->json(["ingreso" => false]);
@@ -115,18 +115,9 @@ class StudentController extends Controller
 
     public function register(Request $request)
     {
-        $students = Student::All();
+        $student = Student::where('email', '=', $request->get("email"))->first();
 
-        $empty = true;
-
-        foreach ($students as $student) {
-            if ($student->email == $request->input("email")) {
-                $empty = false;
-                break;
-            }
-        }
-
-        if ($empty) {
+        if (!$student) {
             $newStudent = new Student();
 
             $newStudent->nombre = $request->input("nombre");
@@ -151,7 +142,7 @@ class StudentController extends Controller
 
     public function resueltas(Request $request)
     {
-        $student = Student::find($request->get("id"));
+        $student = Student::where('email', '=', $request->get("email"))->first();
 
         if (!$student) {
             return response()->json(["error" => "Estudiante no encontrado"]);
@@ -162,13 +153,13 @@ class StudentController extends Controller
 
     public function resueltasUpdate(Request $request)
     {
-        $student = Student::find($request->get("id"));
+        $student = Student::where('email', '=', $request->get("email"))->first();
 
         if (!$student) {
             return response()->json(["error" => "Estudiante no encontrado"]);
         }
 
-        $student->resueltas = $request->get("resueltas");
+        $student->resueltas = $student->resueltas . "-" . $request->get("id");
 
         $student->update();
 
@@ -177,7 +168,7 @@ class StudentController extends Controller
 
     public function semanas(Request $request)
     {
-        $student = Student::find($request->get("id"));
+        $student = Student::where('email', '=', $request->get("email"))->first();
 
         if (!$student) {
             return response()->json(["error" => "Estudiante no encontrado"]);
@@ -188,7 +179,7 @@ class StudentController extends Controller
 
     public function semanasUpdate(Request $request)
     {
-        $student = Student::find($request->get("id"));
+        $student = Student::where('email', '=', $request->get("email"))->first();
 
         if (!$student) {
             return response()->json(["error" => "Estudiante no encontrado"]);
