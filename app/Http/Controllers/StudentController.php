@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -38,19 +38,19 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-	    $student = new Student();
+        $student = new Student();
 
-	    $student->puntaje = 0;
-	    $student->resultas = "";
-	    $student->semana = "";
-	    $student->cedula = $request->get("cedula");
-	    $student->email = $request->get("email");
-	    $student->avatar = $reques->get("avatar");
-	    $student->nombre = $request->get("nombre");
-	    $student->contrasenia = bcrypt($request->get("contrasenia"));
-	    $student->tipo = $request->get("tipo");
-	    $student->programa = $request->get("programa");
-	    $student->facultad = $request->get("facultad");
+        $student->puntaje = 0;
+        $student->resultas = "";
+        $student->semana = "";
+        $student->cedula = $request->get("cedula");
+        $student->email = $request->get("email");
+        $student->avatar = $request->get("avatar");
+        $student->nombre = $request->get("nombre");
+        $student->contrasenia = bcrypt($request->get("contrasenia"));
+        $student->tipo = $request->get("tipo");
+        $student->programa = $request->get("programa");
+        $student->facultad = $request->get("facultad");
     }
 
     /**
@@ -100,75 +100,104 @@ class StudentController extends Controller
 
     public function login(Request $request)
     {
-	    $student = Student::where('email', '=', $request->get("email"))->first();
+        $student = Student::where('email', '=', $request->get("email"))->first();
 
-	    if (!$student)
-	    {
-		return response()->json(["ingreso"=>false]);
-	    }
+        if (!$student) {
+            return response()->json(["ingreso" => false]);
+        }
 
-	   if(Hash::check($request->get("contrasenia"), $student->contrasenia)){ 
-	   	return response()->json(["cedula"=>$student->cedula, "nombre"=>$student->nombre, "avatar"=>$student->avatar, "semanas"=>$student->semanas]);
-	   }
+        if (Hash::check($request->get("contrasenia"), $student->contrasenia)) {
+            return response()->json(["ingreso" => true, "cedula" => $student->cedula, "nombre" => $student->nombre, "avatar" => $student->avatar]);
+        }
 
-	   return response()->json(["ingreso"=>false]);
+        return response()->json(["ingreso" => false]);
     }
 
     public function register(Request $request)
     {
+        $students = Student::All();
+
+        $empty = true;
+
+        foreach ($students as $student) {
+            if ($student->email == $request->input("email")) {
+                $empty = false;
+                break;
+            }
+        }
+
+        if ($empty) {
+            $newStudent = new Student();
+
+            $newStudent->nombre = $request->input("nombre");
+            $newStudent->cedula = $request->input("cedula");
+            $newStudent->email = $request->input("email");
+            $newStudent->contrasenia = bcrypt($request->input("contrasenia"));
+            $newStudent->tipo = "estudiante";
+            $newStudent->programa = $request->input("programa");
+            $newStudent->facultad = $request->input("facultad");
+            $newStudent->avatar = str_replace('a', '', $request->input("avatar"));
+            $newStudent->semana = "";
+            $newStudent->resueltas = "";
+            $newStudent->puntaje = 0;
+
+            $newStudent->save();
+
+            return response()->json(["status" =>  $request->input("email") . ' registrado con exito!']);
+        } else {
+            return response()->json(["error" => "El usuario ya existe..."]);
+        }
     }
 
     public function resueltas(Request $request)
     {
-	$student = Student::find($request->get("id"));
+        $student = Student::find($request->get("id"));
 
-	if (!$student)
-	{
-		return response()->json(["error"=>"Estudiante no encontrado"]);
-	}
+        if (!$student) {
+            return response()->json(["error" => "Estudiante no encontrado"]);
+        }
 
-	return response()->json(["resueltas"=>$student->resueltas]);
+        return response()->json(["resueltas" => $student->resueltas]);
     }
 
-    public function resueltasUpdate(Request $request){
-	$student = Student::find($request->get("id"));
+    public function resueltasUpdate(Request $request)
+    {
+        $student = Student::find($request->get("id"));
 
-	if (!$student)
-	{
-		return response()->json(["error"=>"Estudiante no encontrado"]);
-	}
+        if (!$student) {
+            return response()->json(["error" => "Estudiante no encontrado"]);
+        }
 
-	$student->resueltas = $request->get("resueltas");
+        $student->resueltas = $request->get("resueltas");
 
-	$student->update();
+        $student->update();
 
-	return response()->json(["Success"=>$student->email. " fue actualizado"]);
+        return response()->json(["Success" => $student->email . " fue actualizado"]);
     }
 
     public function semanas(Request $request)
     {
-	$student = Student::find($request->get("id"));
+        $student = Student::find($request->get("id"));
 
-	if (!$student)
-	{
-		return response()->json(["error"=>"Estudiante no encontrado"]);
-	}
+        if (!$student) {
+            return response()->json(["error" => "Estudiante no encontrado"]);
+        }
 
-	return response()->json(["semana"=>$student->semana]);	
+        return response()->json(["semana" => $student->semana]);
     }
 
-    public function semanasUpdate(Request $request){
-	$student = Student::find($request->get("id"));
+    public function semanasUpdate(Request $request)
+    {
+        $student = Student::find($request->get("id"));
 
-	if (!$student)
-	{
-		return response()->json(["error"=>"Estudiante no encontrado"]);
-	}
+        if (!$student) {
+            return response()->json(["error" => "Estudiante no encontrado"]);
+        }
 
-	$student->semana = $request->get("semana");
+        $student->semana = $request->get("semana");
 
-	$student->update();
+        $student->update();
 
-	return response()->json(["Success"=>$student->email. " fue actualizado"]);
+        return response()->json(["Success" => $student->email . " fue actualizado"]);
     }
 }
